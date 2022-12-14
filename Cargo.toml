@@ -1,0 +1,31 @@
+[package]
+authors = ["Taryn Hill <taryn@phrohdoh.com>"]
+edition = "2018"
+license = "MIT OR Apache-2.0"
+name = "sqlite_lunatic_example"
+publish = false
+version = "0.1.0"
+
+[dependencies]
+diesel = {path = "../lunatic-sql", package = "lunatic-sql"}
+dotenvy = "0.15"
+lunatic = "0.12.0"
+
+[[bin]]
+doc = false
+name = "show_posts"
+
+[[bin]]
+doc = false
+name = "write_post"
+
+[[bin]]
+doc = false
+name = "delete_post"
+
+[[bin]]
+doc = false
+name = "publish_post"
+
+[lib]
+doc = false
