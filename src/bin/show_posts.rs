@@ -1,7 +1,9 @@
 use diesel::prelude::*;
+use lunatic::Mailbox;
 use sqlite_lunatic_example::{models::Post, *};
 
-fn main() {
+#[lunatic::main]
+fn main(_: Mailbox<()>) {
     use sqlite_lunatic_example::schema::posts::dsl::*;
 
     let connection = &mut establish_connection();

@@ -18,9 +18,10 @@ fn main() {
         .execute(connection)
         .unwrap();
 
-    let post = posts.find(id).first::<models::Post>(connection);
-    println!("TRYING TO FIND {:?}", post);
-    // .unwrap_or_else(|_| panic!("Unable to find post {}", id));
+    let post = posts
+        .find(id)
+        .first::<models::Post>(connection)
+        .unwrap_or_else(|_| panic!("Unable to find post {}", id));
 
-    // println!("Published post {}", post.title);
+    println!("Published post {}", post.title);
 }

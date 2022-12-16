@@ -3,7 +3,7 @@ pub mod schema;
 
 use diesel::{prelude::*, SqliteConnection};
 use dotenvy::dotenv;
-use std::env;
+use std::{env, io::stdin};
 
 use models::NewPost;
 
@@ -15,13 +15,18 @@ pub fn establish_connection() -> SqliteConnection {
         .unwrap_or_else(|_| panic!("Error connecting to {}", database_url))
 }
 
-pub fn create_post(conn: &mut SqliteConnection, title: &str, body: &str) -> usize {
+pub fn create_post(conn: &mut SqliteConnection, new_post: NewPost) -> usize {
     use crate::schema::posts;
-
-    let new_post = NewPost { title, body };
 
     diesel::insert_into(posts::table)
         .values(&new_post)
         .execute(conn)
         .expect("Error saving new post")
+}
+
+pub fn get_input<S: Into<String>>(message: S) -> String {
+    println!("{}", message.into());
+    let mut input = String::new();
+    stdin().read_line(&mut input).unwrap();
+    input
 }

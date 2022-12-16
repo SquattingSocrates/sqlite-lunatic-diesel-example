@@ -10,10 +10,15 @@ version = "0.1.0"
 diesel = {path = "../lunatic-sql", package = "lunatic-sql"}
 dotenvy = "0.15"
 lunatic = "0.12.0"
+serde = "1.0"
 
 [[bin]]
 doc = false
 name = "show_posts"
+
+[[bin]]
+doc = false
+name = "show_posts_by_topic"
 
 [[bin]]
 doc = false
@@ -26,6 +31,10 @@ name = "delete_post"
 [[bin]]
 doc = false
 name = "publish_post"
+
+[[bin]]
+doc = false
+name = "tag_post"
 
 [lib]
 doc = false
