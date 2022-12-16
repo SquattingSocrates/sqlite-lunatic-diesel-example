@@ -1,7 +1,7 @@
 use diesel::{prelude::*, SqliteConnection};
 use sqlite_lunatic_example::{
     establish_connection, get_input,
-    models::{self, NewPostTopic, PostTopic},
+    models::{self, NewPostTopic},
     schema::{post_topics, posts::dsl::posts, topics::dsl as topics_dsl},
 };
 use std::env::args;

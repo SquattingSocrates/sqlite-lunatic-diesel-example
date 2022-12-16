@@ -1,9 +1,6 @@
 use diesel::prelude::*;
 use lunatic::Mailbox;
-use sqlite_lunatic_example::{
-    models::{Post, PostTopic, Topic},
-    *,
-};
+use sqlite_lunatic_example::{models::Post, *};
 
 #[lunatic::main]
 fn main(_: Mailbox<()>) {
