@@ -1,5 +1,5 @@
 [package]
-authors = ["Taryn Hill <taryn@phrohdoh.com>"]
+authors = ["Yuriy Voshchepynets <yuriy.voshchepynets@ckreator.com>"]
 edition = "2018"
 license = "MIT OR Apache-2.0"
 name = "sqlite_lunatic_example"
