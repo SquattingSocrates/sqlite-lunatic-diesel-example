@@ -21,17 +21,6 @@ fn main(_: Mailbox<()>) {
 
     let connection = &mut establish_connection();
 
-    // if the `use_custom_allocator` argument is set the custom allocator
-    // function above will be used
-    if let Some(arg) = args().nth(1) {
-        if &arg == "use_custom_allocator" {
-            // set custom allocator function for connection
-            connection
-                .set_custom_guest_allocator("__test_set_guest_allocator")
-                .expect("should set custom allocator");
-        }
-    }
-
     let results = posts
         .filter(published.eq(true))
         .limit(5)

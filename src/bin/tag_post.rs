@@ -24,6 +24,10 @@ pub fn tag_post(
     };
     println!("GOT TOPIC_ID {}", topic_id);
 
+    // spawn_link!(|conn| {
+    //     println!("GOT OTHER PROCESS WITH CONN");
+    // });
+
     let post_topic = NewPostTopic { post_id, topic_id };
     println!("INSERTING POST_TOPIC {:?}", post_topic);
     diesel::insert_into(post_topics::table)

@@ -36,5 +36,9 @@ name = "publish_post"
 doc = false
 name = "tag_post"
 
+[[bin]]
+doc = false
+name = "test_safety"
+
 [lib]
 doc = false
