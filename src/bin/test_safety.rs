@@ -1,19 +1,10 @@
-use diesel::{prelude::*, QueryDsl, SqliteConnection, TextExpressionMethods};
+use diesel::{prelude::*, QueryDsl, SqliteConnection};
 use lunatic::{
     abstract_process,
-    process::{AbstractProcess, ProcessRef, Request, RequestHandler, StartProcess},
+    process::{ProcessRef, StartProcess},
     Mailbox,
 };
-use serde::{Deserialize, Serialize};
-use sqlite_lunatic_example::{
-    create_post, establish_connection, get_input,
-    models::{self, NewPost},
-    schema::topics::dsl as topics_dsl,
-};
-use std::{
-    collections::HashMap,
-    io::{stdin, Read},
-};
+use sqlite_lunatic_example::{establish_connection, models, schema::topics::dsl as topics_dsl};
 
 struct SqliteProcess {
     connection: SqliteConnection,
@@ -33,17 +24,16 @@ impl AbstractProcess for SqliteProcess {
     }
 
     #[handle_request]
-    fn create_topic(&mut self, topic: String) -> i32 {
+    fn create_topic(&mut self, topic: String) -> (i32, String) {
         if let Ok(topic) = topics_dsl::topics
             .filter(topics_dsl::name.eq(&topic))
             .first::<models::Topic>(&mut self.connection)
         {
-            topic.id
+            (topic.id, topic.name)
         } else {
             diesel::insert_into(topics_dsl::topics)
                 .values(topics_dsl::name.eq(&topic))
-                .returning(topics_dsl::id)
-                .get_result::<i32>(&mut self.connection)
+                .get_result(&mut self.connection)
                 .expect("failed to insert new topic")
         }
     }
@@ -51,7 +41,7 @@ impl AbstractProcess for SqliteProcess {
 
 #[lunatic::main]
 fn main(_: Mailbox<()>) {
-    let procs: Vec<ProcessRef<SqliteProcess>> = (0..3)
+    let procs: Vec<ProcessRef<SqliteProcess>> = (0..10_000)
         .map(|_| SqliteProcess::start_link((), None))
         .collect();
 
